@@ -1,0 +1,145 @@
+{
+    "Geographie": [
+        {
+            "question": "Was ist die Hauptstadt von Deutschland?",
+            "answer": "Berlin",
+            "options": ["Berlin", "München", "Hamburg", "Frankfurt"]
+        },
+        {
+            "question": "Welcher Fluss fließt durch London?",
+            "answer": "Themse",
+            "options": ["Themse", "Seine", "Elbe", "Rhein"]
+        },
+        {
+            "question": "Was ist die Hauptstadt von Spanien?",
+            "answer": "Madrid",
+            "options": ["Madrid", "Barcelona", "Valencia", "Sevilla"]
+        },
+        {
+            "question": "Welches Land hat die größte Fläche der Welt?",
+            "answer": "Russland",
+            "options": ["Russland", "Kanada", "China", "USA"]
+        }
+    ],
+    "Wissenschaft": [
+        {
+            "question": "Welches Element hat das Symbol H?",
+            "answer": "Wasserstoff",
+            "options": ["Wasserstoff", "Helium", "Sauerstoff", "Stickstoff"]
+        },
+        {
+            "question": "Welches Planetensystem ist der Erde am nächsten?",
+            "answer": "Alpha Centauri",
+            "options": ["Alpha Centauri", "Sirius", "Proxima Centauri", "Andromeda"]
+        },
+        {
+            "question": "Wie lautet die chemische Formel von Wasser?",
+            "answer": "H2O",
+            "options": ["H2O", "CO2", "O2", "H2SO4"]
+        }
+    ],
+    "Geschichte": [
+        {
+            "question": "In welchem Jahr begann der Zweite Weltkrieg?",
+            "answer": "1939",
+            "options": ["1914", "1939", "1945", "1923"]
+        },
+        {
+            "question": "Wer war der erste Präsident der Vereinigten Staaten?",
+            "answer": "George Washington",
+            "options": ["George Washington", "Abraham Lincoln", "Thomas Jefferson", "John Adams"]
+        },
+        {
+            "question": "Welche Mauer fiel 1989?",
+            "answer": "Berliner Mauer",
+            "options": ["Berliner Mauer", "Chinesische Mauer", "Hadrianswall", "Mauer von Jericho"]
+        }
+    ],
+    "Sport": [
+        {
+            "question": "Wie viele Spieler hat ein Fußballteam auf dem Feld?",
+            "answer": "11",
+            "options": ["9", "10", "11", "12"]
+        },
+        {
+            "question": "Wie viele Punkte sind ein Touchdown im American Football wert?",
+            "answer": "6",
+            "options": ["6", "3", "7", "5"]
+        },
+        {
+            "question": "Welche Nation hat die meisten Fußball-Weltmeisterschaften gewonnen?",
+            "answer": "Brasilien",
+            "options": ["Brasilien", "Deutschland", "Italien", "Argentinien"]
+        }
+    ],
+    "Kunst": [
+        {
+            "question": "Wer malte die Mona Lisa?",
+            "answer": "Leonardo da Vinci",
+            "options": ["Leonardo da Vinci", "Michelangelo", "Vincent van Gogh", "Pablo Picasso"]
+        },
+        {
+            "question": "Welches bekannte Werk wurde von Edvard Munch gemalt?",
+            "answer": "Der Schrei",
+            "options": ["Der Schrei", "Sternennacht", "Die Geburt der Venus", "Das Mädchen mit dem Perlenohrring"]
+        },
+        {
+            "question": "Wer schuf die Statue 'David'?",
+            "answer": "Michelangelo",
+            "options": ["Michelangelo", "Donatello", "Bernini", "Leonardo da Vinci"]
+        }
+    ],
+    "Literatur": [
+        {
+            "question": "Wer schrieb 'Faust'?",
+            "answer": "Johann Wolfgang von Goethe",
+            "options": ["Johann Wolfgang von Goethe", "Friedrich Schiller", "Heinrich Heine", "Thomas Mann"]
+        },
+        {
+            "question": "Wer schrieb '1984'?",
+            "answer": "George Orwell",
+            "options": ["George Orwell", "Aldous Huxley", "Ray Bradbury", "Franz Kafka"]
+        },
+        {
+            "question": "Welches Buch beginnt mit dem Satz: 'Es war die beste aller Zeiten, es war die schlimmste aller Zeiten'?",
+            "answer": "Eine Geschichte aus zwei Städten",
+            "options": ["Eine Geschichte aus zwei Städten", "Krieg und Frieden", "Der große Gatsby", "Stolz und Vorurteil"]
+        }
+    ],
+    "Technologie": [
+        {
+            "question": "Welches Unternehmen hat das iPhone entwickelt?",
+            "answer": "Apple",
+            "options": ["Apple", "Samsung", "Microsoft", "Google"]
+        },
+        {
+            "question": "Was war der erste programmierbare Computer?",
+            "answer": "Zuse Z3",
+            "options": ["Zuse Z3", "ENIAC", "Colossus", "UNIVAC"]
+        }
+    ],
+    "Musik": [
+        {
+            "question": "Welches Instrument ist Ludwig van Beethoven bekannt für?",
+            "answer": "Klavier",
+            "options": ["Klavier", "Violine", "Flöte", "Cello"]
+        },
+        {
+            "question": "Welches Musikinstrument wird oft mit Jazz in Verbindung gebracht?",
+            "answer": "Saxophon",
+            "options": ["Saxophon", "Klavier", "Trompete", "Gitarre"]
+        }
+    ],
+    "Biologie": [
+        {
+            "question": "Wie viele Beine hat ein Insekt?",
+            "answer": "6",
+            "options": ["6", "4", "8", "10"]
+        },
+        {
+            "question": "Welche Blutgruppe wird als Universalspender bezeichnet?",
+            "answer": "0 negativ",
+            "options": ["0 negativ", "A positiv", "AB negativ", "B positiv"]
+        }
+    ]
+}
