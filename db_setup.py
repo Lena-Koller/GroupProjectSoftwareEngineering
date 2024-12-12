@@ -24,16 +24,16 @@ def check_python():  # Überprüft die Python-Version, um sicherzustellen, dass 
         Geben Sie python --version oder python3 --version ein.
         Es sollte die Version 3.13 angezeigt werden. ''')  # Zeigt eine detaillierte Anleitung zur Installation von Python 3.13.
 
-        sys.exit(1)  # Beendet das Programm, wenn die Python-Version nicht kompatibel ist.
+        sys.exit(1)  # Beendet das Programm, wenn die Python-Version nicht kompatibel ist
 
-
-def initialize_database():  # Initialisiert die SQLite-Datenbank.
+# Initialisiert die SQLite-Datenbank
+def initialize_database():
     db_exists = os.path.exists("finanzplaner.db")  # Prüft, ob die Datenbankdatei "finanzplaner.db" bereits existiert.
     conn = sqlite3.connect(
-        "finanzplaner.db")  # Verbindet sich mit der Datenbank oder erstellt diese, falls sie nicht existiert.
-    cursor = conn.cursor()  # Erstellt ein Cursor-Objekt, um SQL-Befehle auszuführen.
+        "finanzplaner.db")
+    cursor = conn.cursor()
 
-    # Erstellt die Tabelle "transactions", falls sie noch nicht existiert.
+# Erstellt die Tabelle "transactions", falls sie noch nicht existiert
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS transactions (
         id INTEGER PRIMARY KEY AUTOINCREMENT,  
@@ -45,7 +45,7 @@ def initialize_database():  # Initialisiert die SQLite-Datenbank.
     )
     """)
 
-    # Erstellt die Tabelle "categories", falls sie noch nicht existiert.
+# Erstellt die Tabelle "categories", falls sie noch nicht existiert
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS categories (
         id INTEGER PRIMARY KEY AUTOINCREMENT,  
@@ -53,9 +53,9 @@ def initialize_database():  # Initialisiert die SQLite-Datenbank.
         is_income_category INTEGER NOT NULL DEFAULT 0     )
     """)
 
-    conn.commit()  # Speichert die Änderungen in der Datenbank.
+    conn.commit()  # Speichert die Änderungen in der Datenbank
 
-    # Definiert Standardkategorien und deren Einkommensstatus.
+    # Definiert Standardkategorien und deren Einkommensstatus
     standard_kategorien = [
         ("Einkommen", 1),  # Einkommenskategorie.
         ("Lebensmittel", 0),  # Ausgabenkategorie.
@@ -66,17 +66,18 @@ def initialize_database():  # Initialisiert die SQLite-Datenbank.
         ("Sonstiges", 0)  # Ausgabenkategorie.
     ]
 
-    # Fügt die Standardkategorien in die Tabelle ein, wenn sie noch nicht existieren.
+    # Fügt die Standardkategorien in die Tabelle ein, wenn sie noch nicht existieren
     for cat, inc in standard_kategorien:
         try:
             cursor.execute("INSERT INTO categories (name, is_income_category) VALUES (?, ?)", (cat, inc))
         except sqlite3.IntegrityError:
-            pass  # Überspringt die Kategorie, falls sie bereits vorhanden ist.
+            pass
 
     conn.commit()  # Speichert die Änderungen in der Datenbank.
     conn.close()  # Schließt die Verbindung zur Datenbank.
 
-    if not db_exists:  # Falls die Datenbank neu erstellt wurde.
+# Falls die Datenbank neu erstellt wurde
+    if not db_exists:
         print("Neue Datenbank wurde erstellt, da zum jetzigen Zeitpunkt noch keine existiert.")
         return True  # Gibt zurück, dass eine neue Datenbank erstellt wurde.
     else:  # Falls die Datenbank bereits existierte.

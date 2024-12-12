@@ -1,21 +1,20 @@
 import sqlite3  # SQLite-Bibliothek importieren, um mit einer SQLite-Datenbank zu interagieren
 
-# Funktion: Neue Transaktion hinzufügen
+# Neue Transaktion hinzufügen
 def add_transaction(date, amount, category, description, currency):
     """
-    Fügt eine neue Transaktion zur Tabelle 'transactions' in der Datenbank hinzu.
-
     Parameter:
-        date (str): Datum der Transaktion (im Format DD-MM-YYYY)
+        date (str): Datum der Transaktion (im Format DD.MM.YYYY)
         amount (float): Betrag der Transaktion
         category (str): Kategorie der Transaktion (z. B. "Lebensmittel", "Einkommen")
         description (str): Beschreibung der Transaktion
         currency (str): Währung der Transaktion (z. B. "EUR", "USD")
     """
 
-    with sqlite3.connect("finanzplaner.db") as conn:  # Verbindung zur SQLite-Datenbank herstellen
-        cursor = conn.cursor()  # Cursor-Objekt erstellen, um SQL-Befehle auszuführen
-        # SQL-Befehl zum Einfügen einer neuen Zeile in die Tabelle 'transactions'
+# Verbindung zur SQLite-Datenbank herstellen
+    with sqlite3.connect("finanzplaner.db") as conn:
+        cursor = conn.cursor()
+# SQL-Befehl zum Einfügen einer neuen Zeile in die Tabelle 'transactions'
         cursor.execute("""
         INSERT INTO transactions (date, amount, category, description, currency)
         VALUES (?, ?, ?, ?, ?)
@@ -25,46 +24,29 @@ def add_transaction(date, amount, category, description, currency):
 # Funktion: Alle Transaktionen abrufen
 def get_transactions():
     """
-    Ruft alle Transaktionen aus der Tabelle 'transactions' ab.
-
     Rückgabewert:
-        list: Liste aller Transaktionsdatensätze aus der Datenbank.
+        list: Liste aller Transaktionsdatensätze aus der Datenbank
     """
-    with sqlite3.connect("finanzplaner.db") as conn:  # Verbindung zur SQLite-Datenbank herstellen
+    with sqlite3.connect("finanzplaner.db") as conn:
         cursor = conn.cursor()
-        # SQL-Befehl, um alle Zeilen aus der Tabelle 'transactions' abzurufen
+# SQL-Befehl, um alle Zeilen aus der Tabelle 'transactions' abzurufen
         cursor.execute("SELECT * FROM transactions")
         return cursor.fetchall()  # Alle Ergebnisse zurückgeben
 
 # Funktion: Transaktion löschen
 def delete_transaction(transaction_id):
-    """
-    Löscht eine spezifische Transaktion aus der Tabelle 'transactions' anhand der ID.
-
-    Parameter:
-        transaction_id (int): ID der Transaktion, die gelöscht werden soll.
-    """
     with sqlite3.connect("finanzplaner.db") as conn:  # Verbindung zur SQLite-Datenbank herstellen
         cursor = conn.cursor()
-        # SQL-Befehl, um eine Transaktion anhand ihrer ID zu löschen
+# SQL-Befehl, um eine Transaktion anhand ihrer ID zu löschen
         cursor.execute("DELETE FROM transactions WHERE id = ?", (transaction_id,))
         conn.commit()  # Änderungen in der Datenbank speichern
 
 # Funktion: Neue Kategorie hinzufügen
 def add_category(name):
-    """
-    Fügt eine neue Kategorie zur Tabelle 'categories' in der Datenbank hinzu.
 
-    Parameter:
-        name (str): Name der Kategorie, die hinzugefügt werden soll.
-
-    Rückgabewert:
-        bool: True, wenn die Kategorie erfolgreich hinzugefügt wurde; False, wenn ein Fehler auftrat (z. B. ein Duplikat).
-    """
-    with sqlite3.connect("finanzplaner.db") as conn:  # Verbindung zur SQLite-Datenbank herstellen
+    with sqlite3.connect("finanzplaner.db") as conn:
         cursor = conn.cursor()
         try:
-            # SQL-Befehl zum Einfügen einer neuen Kategorie in die Tabelle 'categories'
             cursor.execute("INSERT INTO categories (name) VALUES (?)", (name,))
             conn.commit()  # Änderungen in der Datenbank speichern
             return True  # Erfolgreiches Hinzufügen
@@ -79,7 +61,7 @@ def get_categories():
     Rückgabewert:
         list: Alphabetisch sortierte Liste der Kategoriennamen.
     """
-    with sqlite3.connect("finanzplaner.db") as conn:  # Verbindung zur SQLite-Datenbank herstellen
+    with sqlite3.connect("finanzplaner.db") as conn:
         cursor = conn.cursor()
         # SQL-Befehl, um alle Kategorien alphabetisch sortiert abzurufen
         cursor.execute("SELECT name FROM categories ORDER BY name")
@@ -98,7 +80,7 @@ def get_category_stats():
             - total_expenses (float): Gesamtausgaben (Summe aller Transaktionen außer "Einkommen").
             - difference (float): Differenz zwischen Einnahmen und Ausgaben.
     """
-    with sqlite3.connect("finanzplaner.db") as conn:  # Verbindung zur SQLite-Datenbank herstellen
+    with sqlite3.connect("finanzplaner.db") as conn:
         cursor = conn.cursor()
         # SQL-Befehl, um die Summe der Beträge pro Kategorie zu berechnen
         cursor.execute("SELECT category, SUM(amount) FROM transactions GROUP BY category")

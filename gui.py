@@ -1,3 +1,4 @@
+# Stellt sicher, dass "requests" vorhanden ist. Falls nicht, Hinweis auf Installation.
 try:
     import requests
 except ImportError:
@@ -9,10 +10,9 @@ from db_ops import add_transaction, get_transactions, delete_transaction, get_ca
 
 displayed_transactions = []
 
-# Funktion: Wechselkurse von der Frankfurter API abrufen
+# Ruft Wechselkurse von der Frankfurter API ab
 def get_exchange_rates(base_currency="EUR"):
     """
-    Ruft Wechselkurse von der Frankfurter API ab.
     :param base_currency: Basiswährung, standardmäßig EUR
     :return: Ein Dictionary mit Währungswechselkursen oder eine Fehlermeldung
     """
@@ -26,10 +26,9 @@ def get_exchange_rates(base_currency="EUR"):
         messagebox.showerror("Fehler", f"Fehler beim Abrufen der Wechselkurse: {e}")
         return {}
 
-# Funktion: Betrag umrechnen
+# Konvertiert einen Betrag von einer Währung in eine andere
 def convert_currency(amount, from_currency, to_currency):
     """
-    Konvertiert einen Betrag von einer Währung in eine andere.
     :param amount: Der Betrag, der konvertiert werden soll
     :param from_currency: Ausgangswährung
     :param to_currency: Zielwährung
@@ -42,13 +41,13 @@ def convert_currency(amount, from_currency, to_currency):
 
     return amount * rates[to_currency]
 
-# GUI-Funktion: Wechselkurse anzeigen
+# Zeigt die aktuellen Wechselkurse in einem neuen Fenster an.
 def show_exchange_rates():
-    rates = get_exchange_rates()  # Abrufen der Wechselkurse
+    rates = get_exchange_rates()
     if not rates:
         return
 
-    # Neues Fenster erstellen
+# Neues Fenster erstellen
     rates_win = tk.Toplevel(root)
     rates_win.title("Wechselkurse")
 
@@ -60,8 +59,7 @@ def show_exchange_rates():
     for currency, rate in rates.items():
         tk.Label(frame_rates, text=f"{currency}: {rate:.4f}").pack(anchor="w", pady=2)
 
-# GUI-Funktion: Währungsumrechnung
-
+# Öffnet ein Fenster zur Währungsumrechnung
 def open_currency_conversion_window():
     conv_win = tk.Toplevel(root)
     conv_win.title("Währungsumrechnung")
@@ -99,7 +97,7 @@ def open_currency_conversion_window():
 
     tk.Button(conv_win, text="Umrechnen", command=perform_conversion).grid(row=3, column=0, columnspan=2, pady=10)
 
-# Update-Liste der Transaktionen
+# Aktualisiert die Liste der Transaktionen in der Listbox
 def update_listbox():
     global displayed_transactions
     lb_transactions.delete(0, tk.END)
@@ -112,7 +110,7 @@ def update_listbox():
             line += f" ({t[4]})"
         lb_transactions.insert(tk.END, line)
 
-# Transaktion löschen
+# Ausgewählte Transaktion löschen
 def delete_selected_transaction():
     selection = lb_transactions.curselection()
     if not selection:
@@ -133,7 +131,7 @@ def open_transaction_window():
     e_date = tk.Entry(trans_win)
     e_date.grid(row=0, column=1, padx=5, pady=5)
 
-    tk.Label(trans_win, text="Betrag:").grid(row=1, column=0, sticky="e", padx=5, pady=5)
+    tk.Label(trans_win, text="Betrag (in EUR):").grid(row=1, column=0, sticky="e", padx=5, pady=5)
     e_amount = tk.Entry(trans_win)
     e_amount.grid(row=1, column=1, padx=5, pady=5)
 
@@ -150,16 +148,13 @@ def open_transaction_window():
     e_desc = tk.Entry(trans_win)
     e_desc.grid(row=3, column=1, padx=5, pady=5)
 
-    tk.Label(trans_win, text="Währung (z.B. EUR):").grid(row=4, column=0, sticky="e", padx=5, pady=5)
-    e_curr = tk.Entry(trans_win)
-    e_curr.grid(row=4, column=1, padx=5, pady=5)
 
     def save_transaction():
         date = e_date.get().strip()
         amount = e_amount.get().strip()
         category = cat_var.get()
         desc = e_desc.get().strip()
-        curr = e_curr.get().strip()
+        curr = "EUR"
 
         if not date or not amount or not category or "Keine Kategorien" in category or not curr:
             messagebox.showwarning("Fehler", "Bitte alle erforderlichen Felder ausfüllen.")
@@ -177,7 +172,7 @@ def open_transaction_window():
 
     tk.Button(trans_win, text="Speichern", command=save_transaction).grid(row=5, column=0, columnspan=2, pady=10)
 
-# Übersicht anzeigen
+# Zeigt eine Übersicht der Kategorien, Einnahmen, Ausgaben und Differenz an
 def show_overview():
     category_sums, total_income, total_expenses, difference = get_category_stats()
 
