@@ -25,9 +25,11 @@ def save_questions(filename, data):
 # Hauptfunktion zum Spielen des Quiz
 def play_quiz(questions):
     score = 0
+    total_questions = len(questions)
+    rounds = min(roundsSingleplayer, total_questions)  # Maximale Rundenanzahl an die verfügbare Anzahl Fragen anpassen
     random.shuffle(questions)  # Fragen mischen für zufällige Reihenfolge
-    # Eine festgelegte Anzahl von Runden spielen oder so viele, wie Fragen vorhanden sind
-    for i in range(min(roundsSingleplayer, len(questions))):
+    
+    for i in range(rounds):
         question = questions[i]
         print(f"Frage: {question['question']}")
 
@@ -35,14 +37,14 @@ def play_quiz(questions):
         shuffled_options = question['options'].copy()
         random.shuffle(shuffled_options)
         options_dict = {str(index + 1): option for index, option in enumerate(shuffled_options)}
-        print("Optionen: " + ", ".join([f"{k}: {v}" for k, v in options_dict.items()]))
-        answer = input("Deine Antwort (Nummer): ")
+        print(" \n".join([f"{k}: {v}" for k, v in options_dict.items()]))
+        answer = input("Wähle eine Option (1-4): ")
         if options_dict.get(answer.strip()) == question['answer']:
             print("Richtig! \n")
             score += 1
         else:
             print(f"Falsch! Die richtige Antwort war: {question['answer']} \n")
-    print(f"Dein Punktestand: {score}/{roundsSingleplayer}")
+    print(f"Dein Punktestand: {score}/{rounds}")
 
 # Funktion zum Filtern von Fragen nach Kategorie
 def filter_by_category(questions, category):
