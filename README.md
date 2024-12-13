@@ -36,6 +36,8 @@ VORAUSSETZUNGEN:
 4. Initialisierung der Datenbank:
     - Beim ersten Start wird automatisch eine SQLite-Datenbank (finanzplaner.db) erstellt, falls diese noch nicht existiert. 
 
+5. API-Nutzung
+   - Für die Nutzung des Währungsumrechners und Wechselkurse ist eine Internetverbindung erforderlich.
 
 
 ANWENDUNG:
@@ -61,4 +63,3 @@ TECHNISCHE DETAILS:
     - Tabelle transactions: Speichert alle Transaktionen mit Details wie Datum, Betrag, Kategorie, Beschreibung und Währung.
     - Tabelle categories: Enthält Standardkategorien und deren Einkommensstatus.
    
-3. Für die Nutzung der API ist eine Internetverbindung erforderlich.
