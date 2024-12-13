@@ -73,15 +73,15 @@ Nach dem Start sehen Sie das Hauptmenü:
 
 ```
 Pub Quiz Tool
-1. Quiz starten
-2. Kategorie wählen
-3. Mehrspielermodus
+1. Einzelspiel Quiz starten
+2. Mehrspeilermodus starten
+3. Kategorie wählen
 4. Beenden
 ```
 
-1. Quiz starten: Startet ein zufälliges Quiz mit allen verfügbaren Fragen.  
-2. Kategorie wählen: Zeigt verfügbare Kategorien an und ermöglicht es, ein Quiz mit Fragen aus nur einer Kategorie zu spielen.  
-3. Mehrspielermodus: Startet ein Multiplayer-Quiz. Geben Sie die Spielernamen als kommagetrennte Liste ein.  
+1. Einzelspiel Quiz starten: Startet ein zufälliges Quiz mit allen verfügbaren Fragen.  
+2. Mehrspielermodus starten: Startet ein Multiplayer-Quiz. Geben Sie die Spielernamen als kommagetrennte Liste ein.  
+3. Kategorie wählen: Zeigt verfügbare Kategorien an und ermöglicht es, ein Quiz mit Fragen aus nur einer Kategorie zu spielen.  
 4. Beenden: Beendet das Programm.
 
 ### Fragen beantworten
@@ -145,7 +145,6 @@ Fügen Sie neue Fragen direkt zur `questions.json`-Datei hinzu. Achten Sie darau
 
 - Online-Modus: Fragen aus einer Datenbank oder API laden.  
 - Zeitlimit: Begrenzte Zeit für jede Antwort.  
-- Grafische Benutzeroberfläche (GUI): Verbesserung der Benutzerfreundlichkeit.  
 
 ---
 
