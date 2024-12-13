@@ -1,7 +1,7 @@
 # Finanzplaner
 
 1. Python-Version:
-    - Das Programm erfordert mindestens Python 3.13. Beim Start überprüft das Programm automatisch deine Python-Version. 
+    - Das Programm erfordert mindestens Python 3.10. Beim Start überprüft das Programm automatisch deine Python-Version. 
     - Wenn deine Version nicht kompatibel ist, erhältst Du eine Anleitung zur Aktualisierung.
    
 
