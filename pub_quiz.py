@@ -1,5 +1,7 @@
 import json
 import random
+import tkinter as tk
+from tkinter import messagebox
 
 # Festlegen der Anzahl von Runden für Einzelspieler und Mehrspieler
 roundsSingleplayer = 5
@@ -10,119 +12,256 @@ def load_questions(filename):
     with open(filename, 'r', encoding="utf-8") as file:
         data = json.load(file)
         questions = []
-        # Iterieren durch jede Kategorie und Frage, wobei Kategorieinformationen zu jeder Frage hinzugefügt werden
         for category, qs in data.items():
             for q in qs:
                 q['category'] = category
                 questions.append(q)
         return questions
 
-# Funktion zum Speichern von Fragen in einer JSON-Datei
-def save_questions(filename, data):
-    with open(filename, 'w', encoding="utf-8") as file:
-        json.dump(data, file, indent=4)
+# Hauptklasse für die Quiz-Anwendung
+class QuizApp:
+    # Initialisierung der QuizApp-Klasse
+    def __init__(self, root, questions):
+        self.root = root
+        self.questions = questions
+        self.score = 0
+        self.current_question_index = 0
+        self.selected_category = None
+        self.players = []
+        self.current_player_index = 0
+        self.multiplayer_scores = {}
 
-# Hauptfunktion zum Spielen des Quiz
-def play_quiz(questions):
-    score = 0
-    total_questions = len(questions)
-    rounds = min(roundsSingleplayer, total_questions)  # Maximale Rundenanzahl an die verfügbare Anzahl Fragen anpassen
-    random.shuffle(questions)  # Fragen mischen für zufällige Reihenfolge
-    
-    for i in range(rounds):
-        question = questions[i]
-        print(f"Frage: {question['question']}")
+        self.root.title("Pub Quiz")
 
-        # Optionen mischen und mit Nummern präsentieren
+        self.main_frame = tk.Frame(self.root)
+        self.main_frame.pack(pady=20)
+
+        self.title_label = tk.Label(self.main_frame, text="Pub Quiz", font=("Arial", 24))
+        self.title_label.pack(pady=10)
+
+        self.start_single_button = tk.Button(self.main_frame, text="Einzelspieler Quiz starten", command=self.start_quiz)
+        self.start_single_button.pack(pady=5)
+
+        self.start_multi_button = tk.Button(self.main_frame, text="Mehrspielermodus starten", command=self.start_multiplayer_setup)
+        self.start_multi_button.pack(pady=5)
+
+        self.category_button = tk.Button(self.main_frame, text="Kategorie wählen", command=self.choose_category)
+        self.category_button.pack(pady=5)
+
+        self.quit_button = tk.Button(self.main_frame, text="Beenden", command=self.root.destroy)
+        self.quit_button.pack(pady=5)
+
+    # Startet den Einzelspieler-Quizmodus
+    def start_quiz(self):
+        random.shuffle(self.questions)
+        self.score = 0
+        self.current_question_index = 0
+        self.show_question()
+
+    # Öffnet ein Setup-Fenster für den Mehrspielermodus
+    def start_multiplayer_setup(self):
+        setup_window = tk.Toplevel(self.root)
+        setup_window.title("Spieler einrichten")
+
+        tk.Label(setup_window, text="Spielernamen eingeben (kommagetrennt):").pack(pady=10)
+        player_entry = tk.Entry(setup_window)
+        player_entry.pack(pady=5)
+
+        tk.Button(
+            setup_window, 
+            text="Starten", 
+            command=lambda: self.setup_multiplayer(player_entry.get(), setup_window)
+        ).pack(pady=10)
+
+    # Initialisiert die Spieler und startet den Mehrspielermodus
+    def setup_multiplayer(self, player_input, setup_window):
+        self.players = [player.strip() for player in player_input.split(',') if player.strip()]
+        if not self.players:
+            messagebox.showerror("Fehler", "Es müssen mindestens ein Spieler eingegeben werden!")
+            return
+
+        self.multiplayer_scores = {player: 0 for player in self.players}
+        self.current_player_index = 0
+        setup_window.destroy()
+        self.start_multiplayer_quiz()
+
+    # Startet das Quiz im Mehrspielermodus
+    def start_multiplayer_quiz(self):
+        if self.current_question_index >= min(roundsMultiplayer, len(self.questions)):
+            self.show_multiplayer_results()
+            return
+
+        self.show_question(multiplayer=True)
+
+    # Ermöglicht die Auswahl einer Kategorie
+    def choose_category(self):
+        categories = list(set(q['category'] for q in self.questions))
+        self.selected_category = tk.StringVar(value=categories[0])
+
+        category_window = tk.Toplevel(self.root)
+        category_window.title("Kategorie wählen")
+
+        tk.Label(category_window, text="Wähle eine Kategorie:").pack(pady=10)
+        for category in categories:
+            tk.Radiobutton(
+                category_window,
+                text=category,
+                variable=self.selected_category,
+                value=category
+            ).pack(anchor="w")
+
+        tk.Button(
+            category_window, 
+            text="Bestätigen", 
+            command=lambda: [self.filter_questions(), category_window.destroy()]
+        ).pack(pady=10)
+
+    # Filtert die Fragen basierend auf der gewählten Kategorie
+    def filter_questions(self):
+        if self.selected_category is None:
+            messagebox.showerror("Fehler", "Keine Kategorie ausgewählt!")
+            return
+
+        category = self.selected_category.get()
+        filtered_questions = [q for q in self.questions if q['category'] == category]
+        if filtered_questions:
+            self.questions = filtered_questions
+        else:
+            messagebox.showerror("Fehler", "Keine Fragen in dieser Kategorie gefunden!")
+
+    # Zeigt eine Frage an (Singleplayer oder Multiplayer)
+    def show_question(self, multiplayer=False):
+        if self.current_question_index >= len(self.questions):
+            if multiplayer:
+                self.show_multiplayer_results()
+            else:
+                self.show_results()
+            return
+
+        question = self.questions[self.current_question_index]
         shuffled_options = question['options'].copy()
         random.shuffle(shuffled_options)
-        options_dict = {str(index + 1): option for index, option in enumerate(shuffled_options)}
-        print(" \n".join([f"{k}: {v}" for k, v in options_dict.items()]))
-        answer = input("Wähle eine Option (1-4): ")
-        if options_dict.get(answer.strip()) == question['answer']:
-            print("Richtig! \n")
-            score += 1
+
+        self.clear_frame()
+
+        if multiplayer:
+            player = self.players[self.current_player_index]
+            tk.Label(self.main_frame, text=f"Spieler: {player}", font=("Arial", 16)).pack(pady=5)
+
+        tk.Label(self.main_frame, text=f"Frage {self.current_question_index + 1}", font=("Arial", 16)).pack(pady=10)
+        tk.Label(self.main_frame, text=question['question'], wraplength=400).pack(pady=10)
+
+        self.selected_option = tk.StringVar(value="")
+        for option in shuffled_options:
+            tk.Radiobutton(
+                self.main_frame, 
+                text=option, 
+                variable=self.selected_option, 
+                value=option
+            ).pack(anchor="w", pady=5)
+
+        tk.Button(
+            self.main_frame, 
+            text="Bestätigen", 
+            command=lambda: self.check_answer(multiplayer)
+        ).pack(pady=10)
+
+    # Überprüft die Antwort und aktualisiert den Spielstand
+    def check_answer(self, multiplayer):
+        question = self.questions[self.current_question_index]
+        selected = self.selected_option.get()
+
+        if multiplayer:
+            player = self.players[self.current_player_index]
+            if selected == question['answer']:
+                self.multiplayer_scores[player] += 1
+                messagebox.showinfo("Richtig!", "Das war die richtige Antwort!")
+            else:
+                messagebox.showerror("Falsch!", f"Die richtige Antwort war: {question['answer']}")
+
+            self.current_player_index = (self.current_player_index + 1) % len(self.players)
+            if self.current_player_index == 0:
+                self.current_question_index += 1
+            self.start_multiplayer_quiz()
         else:
-            print(f"Falsch! Die richtige Antwort war: {question['answer']} \n")
-    print(f"Dein Punktestand: {score}/{rounds}")
+            if selected == question['answer']:
+                self.score += 1
+                messagebox.showinfo("Richtig!", "Das war die richtige Antwort!")
+            else:
+                messagebox.showerror("Falsch!", f"Die richtige Antwort war: {question['answer']}")
+            self.current_question_index += 1
+            self.show_question()
 
-# Funktion zum Filtern von Fragen nach Kategorie
-def filter_by_category(questions, category):
-    return [q for q in questions if q['category'] == category]
+    # Zeigt die Ergebnisse des Einzelspieler-Quiz an
+    def show_results(self):
+        self.clear_frame()
 
-# Funktion für den Mehrspielermodus
-def multiplayer_mode(questions, players):
-    scores = {player: 0 for player in players}
-    random.shuffle(questions)  # Fragen für Zufälligkeit mischen
-    question_index = 0
-    # Durchspieler rotieren, jedem eine feste Anzahl von Fragen zuweisen
-    for player in players:
-        print(f"Runde von {player}!")
-        score = 0
-        for _ in range(min(roundsMultiplayer, len(questions) - question_index)):
-            question = questions[question_index]
-            question_index += 1
-            print(f"\nFrage: {question['question']}")
+        tk.Label(self.main_frame, text="Quiz beendet!", font=("Arial", 16)).pack(pady=10)
+        tk.Label(
+            self.main_frame, 
+            text=f"Dein Punktestand: {self.score}/{min(roundsSingleplayer, len(self.questions))}", 
+            font=("Arial", 14)
+        ).pack(pady=10)
 
-            shuffled_options = question['options'].copy()
-            random.shuffle(shuffled_options)
-            options_dict = {str(index + 1): option for index, option in enumerate(shuffled_options)}
-            print("Optionen: " + ", ".join([f"{k}: {v}" for k, v in options_dict.items()]))
-            answer = input(f"{player}, deine Antwort (Nummer): ")
-            if options_dict.get(answer.strip()) == question['answer']:
-                score += 1
-        scores[player] = score
-    print("Endergebnis:")
-    for player, score in scores.items():
-        print(f"{player}: {score}")
+        tk.Button(
+            self.main_frame, 
+            text="Zurück zum Hauptmenü", 
+            command=self.reset_quiz
+        ).pack(pady=10)
 
+    # Zeigt die Ergebnisse des Mehrspieler-Quiz an
+    def show_multiplayer_results(self):
+        self.clear_frame()
+
+        tk.Label(self.main_frame, text="Multiplayer Ergebnis", font=("Arial", 16)).pack(pady=10)
+        for player, score in self.multiplayer_scores.items():
+            tk.Label(self.main_frame, text=f"{player}: {score}", font=("Arial", 14)).pack(pady=5)
+
+        tk.Button(
+            self.main_frame, 
+            text="Zurück zum Hauptmenü", 
+            command=self.reset_quiz
+        ).pack(pady=10)
+
+    # Setzt das Quiz zurück und kehrt zum Hauptmenü zurück
+    def reset_quiz(self):
+        self.clear_frame()
+        self.reset_variables()
+        self.create_main_menu()
+
+    # Setzt die Variablen der Anwendung auf ihre Standardwerte zurück
+    def reset_variables(self):
+        self.questions = load_questions('questions.json')
+        self.score = 0
+        self.current_question_index = 0
+        self.selected_category = None
+        self.players = []
+        self.multiplayer_scores = {}
+        self.current_player_index = 0
+
+    # Erstellt das Hauptmenü der Anwendung
+    def create_main_menu(self):
+        self.__init__(self.root, self.questions)
+
+    # Entfernt alle Widgets aus dem aktuellen Frame
+    def clear_frame(self):
+        for widget in self.main_frame.winfo_children():
+            widget.destroy()
+
+# Hauptprogramm
+# Hauptfunktion der Anwendung
 def main():
     questions = None
 
     try:
         questions = load_questions('questions.json')
     except Exception as e:
-        print(f"Fehler beim Laden der Fragen aus 'questions.json': {e}")
-        try:
-            questions = load_questions('PubQuiz/questions.json')
-        except Exception as e:
-            print(f"Fehler beim Laden der Fragen aus 'PubQuiz/questions.json': {e}")
-            print("Fragen konnten nicht geladen werden.")
-            return
+        messagebox.showerror("Fehler", f"Fehler beim Laden der Fragen: {e}")
+        return
 
-    # Hauptprogrammschleife für Benutzerinteraktion
-    while True:
-        print("\nPub Quiz Tool")
-        print("1. Quiz starten")
-        print("2. Kategorie wählen")
-        print("3. Mehrspielermodus")
-        print("4. Beenden")
-        choice = input("Wähle eine Option: ")
-        
-        if choice == '1':
-            try:
-                play_quiz(questions)
-            except Exception as e:
-                print(f"Fehler beim Starten des Quiz: {e}")
-        elif choice == '2':
-            print("Verfügbare Kategorien: ", set(q['category'] for q in questions))
-            category = input("Kategorie wählen: ")
-            try:
-                filtered_questions = filter_by_category(questions, category)
-                play_quiz(filtered_questions)
-            except Exception as e:
-                print(f"Fehler beim Filtern der Fragen: {e}")
-        elif choice == '3':
-            players = input("Spieler (kommagetrennt eingeben): ").split(',')
-            try:
-                multiplayer_mode(questions, players)
-            except Exception as e:
-                print(f"Fehler im Mehrspielermodus: {e}")
-        elif choice == '4':
-            print("Danke fürs Spielen!")
-            break
-        else:
-            print("Ungültige Auswahl!")
+    root = tk.Tk()
+    QuizApp(root, questions)
+    root.mainloop()
 
-main()
-
+if __name__ == "__main__":
+    main()
