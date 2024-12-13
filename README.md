@@ -60,6 +60,6 @@ TECHNISCHE DETAILS:
       
 2. Datenbankstruktur:
 
-    - Tabelle transactions: Speichert alle Transaktionen mit Details wie Datum, Betrag, Kategorie, Beschreibung und Währung.
+    - Tabelle transactions: Speichert alle Transaktionen mit Details wie Datum, Betrag, Kategorie und Beschreibung.
     - Tabelle categories: Enthält Standardkategorien und deren Einkommensstatus.
    
