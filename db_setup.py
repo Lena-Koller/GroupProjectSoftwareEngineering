@@ -4,25 +4,24 @@ import sqlite3  # Importiert SQLite, ein eingebettetes Datenbanksystem.
 
 def check_python():  # Überprüft die Python-Version, um sicherzustellen, dass das Programm korrekt ausgeführt wird.
     import sys  # Importiert das sys-Modul, um auf Versionsinformationen von Python zuzugreifen.
-    if sys.version_info.major < 3.12:  # Prüft, ob die Hauptversion von Python kleiner als 3.12 ist.
+    if sys.version_info.major < 3 :  # Prüft, ob die Hauptversion von Python kleiner als 3.1 ist.
         print('''
-        Dieses Programm erfordert Python 3.12 (oder aktuellere Version), um korrekt ausgeführt zu werden.
+        Dieses Programm erfordert Python 3.1 (oder aktuellere Version), um korrekt ausgeführt zu werden.
 
         So installieren Sie die neue Version:
 
-        Gehen Sie auf die offizielle Website von Python: https://www.python.org.
-        Navigieren Sie zum Bereich "Downloads" und wählen Sie die Version 3.13 für Ihr Betriebssystem aus (Windows, macOS oder Linux).
-        Laden Sie die Installationsdatei herunter.
-        Für Windows: Laden Sie die .exe-Datei herunter.
-        Für macOS: Laden Sie die .pkg-Datei herunter.
-        Für Linux: Installieren Sie Python über Ihren Paketmanager oder durch Kompilierung aus dem Quellcode.
-        Führen Sie das Installationsprogramm aus.
-        Stellen Sie sicher, dass die Option "Add Python to PATH" aktiviert ist, wenn Sie Python auf Windows installieren.
-        Folgen Sie den Anweisungen des Installationsassistenten.
-        Nach der Installation überprüfen Sie, ob Python korrekt installiert wurde:
-        Öffnen Sie eine Kommandozeile oder ein Terminal.
-        Geben Sie python --version oder python3 --version ein.
-        Es sollte die aktuellste Version angezeigt werden. ''')  # Zeigt eine detaillierte Anleitung zur Installation von Python 3.13.
+        1. Gehen Sie auf die offizielle Website von Python: https://www.python.org.
+        2. Navigieren Sie zum Bereich "Downloads" und wählen Sie die Version für Ihr Betriebssystem aus (Windows, macOS oder Linux).
+        3. Laden Sie die Installationsdatei herunter.
+            - Für Windows: Laden Sie die .exe-Datei herunter.
+            - Für macOS: Laden Sie die .pkg-Datei herunter.
+            - Für Linux: Installieren Sie Python über Ihren Paketmanager oder durch Kompilierung aus dem Quellcode.
+        4. Führen Sie das Installationsprogramm aus.
+        5. Folgen Sie den Anweisungen des Installationsassistenten.
+        6. Nach der Installation überprüfen Sie, ob Python korrekt installiert wurde:
+            - Öffnen Sie eine Kommandozeile oder ein Terminal.
+            - Geben Sie python --version oder python3 --version ein.
+            - Es sollte die aktuellste Version angezeigt werden. ''')  # Zeigt eine detaillierte Anleitung zur Installation von Python <3.1
 
         sys.exit(1)  # Beendet das Programm, wenn die Python-Version nicht kompatibel ist
 
