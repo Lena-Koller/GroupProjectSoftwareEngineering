@@ -19,6 +19,16 @@
             "question": "Welches Land hat die größte Fläche der Welt?",
             "answer": "Russland",
             "options": ["Russland", "Kanada", "China", "USA"]
+        },
+        {
+            "question": "Wie heißt der höchste Berg der Welt?",
+            "answer": "Mount Everest",
+            "options": ["Mount Everest", "K2", "Kangchendzönga", "Makalu"]
+        },
+        {
+            "question": "Welcher Kontinent hat die meisten Länder?",
+            "answer": "Afrika",
+            "options": ["Afrika", "Asien", "Europa", "Südamerika"]
         }
     ],
     "Wissenschaft": [
@@ -36,6 +46,16 @@
             "question": "Wie lautet die chemische Formel von Wasser?",
             "answer": "H2O",
             "options": ["H2O", "CO2", "O2", "H2SO4"]
+        },
+        {
+            "question": "Wer hat die Relativitätstheorie entwickelt?",
+            "answer": "Albert Einstein",
+            "options": ["Albert Einstein", "Isaac Newton", "Marie Curie", "Nikola Tesla"]
+        },
+        {
+            "question": "Welcher Planet wird als roter Planet bezeichnet?",
+            "answer": "Mars",
+            "options": ["Mars", "Venus", "Jupiter", "Saturn"]
         }
     ],
     "Geschichte": [
@@ -53,6 +73,16 @@
             "question": "Welche Mauer fiel 1989?",
             "answer": "Berliner Mauer",
             "options": ["Berliner Mauer", "Chinesische Mauer", "Hadrianswall", "Mauer von Jericho"]
+        },
+        {
+            "question": "Wer war der berühmte Führer des antiken Roms, der 44 v. Chr. ermordet wurde?",
+            "answer": "Julius Caesar",
+            "options": ["Julius Caesar", "Nero", "Augustus", "Trajan"]
+        },
+        {
+            "question": "Wann wurde die erste Mondlandung durchgeführt?",
+            "answer": "1969",
+            "options": ["1969", "1957", "1972", "1965"]
         }
     ],
     "Sport": [
@@ -70,6 +100,16 @@
             "question": "Welche Nation hat die meisten Fußball-Weltmeisterschaften gewonnen?",
             "answer": "Brasilien",
             "options": ["Brasilien", "Deutschland", "Italien", "Argentinien"]
+        },
+        {
+            "question": "Welcher Tennisspieler hat die meisten Grand-Slam-Titel gewonnen?",
+            "answer": "Novak Djokovic",
+            "options": ["Novak Djokovic", "Roger Federer", "Rafael Nadal", "Pete Sampras"]
+        },
+        {
+            "question": "Welches Land hat die Olympischen Spiele 2020 ausgerichtet?",
+            "answer": "Japan",
+            "options": ["Japan", "China", "USA", "Frankreich"]
         }
     ],
     "Kunst": [
@@ -87,6 +127,16 @@
             "question": "Wer schuf die Statue 'David'?",
             "answer": "Michelangelo",
             "options": ["Michelangelo", "Donatello", "Bernini", "Leonardo da Vinci"]
+        },
+        {
+            "question": "Welcher niederländische Maler schnitt sich ein Ohr ab?",
+            "answer": "Vincent van Gogh",
+            "options": ["Vincent van Gogh", "Rembrandt", "Johannes Vermeer", "Paul Gauguin"]
+        },
+        {
+            "question": "Welches Gemälde von Leonardo da Vinci zeigt ein Abendessen?",
+            "answer": "Das letzte Abendmahl",
+            "options": ["Das letzte Abendmahl", "Die Hochzeit zu Kana", "Die Geburt der Venus", "Die Schöpfung Adams"]
         }
     ],
     "Literatur": [
@@ -104,6 +154,16 @@
             "question": "Welches Buch beginnt mit dem Satz: 'Es war die beste aller Zeiten, es war die schlimmste aller Zeiten'?",
             "answer": "Eine Geschichte aus zwei Städten",
             "options": ["Eine Geschichte aus zwei Städten", "Krieg und Frieden", "Der große Gatsby", "Stolz und Vorurteil"]
+        },
+        {
+            "question": "Wer schrieb 'Der Herr der Ringe'?",
+            "answer": "J.R.R. Tolkien",
+            "options": ["J.R.R. Tolkien", "C.S. Lewis", "George R.R. Martin", "J.K. Rowling"]
+        },
+        {
+            "question": "Welches Buch wird oft als der erste moderne Roman angesehen?",
+            "answer": "Don Quijote",
+            "options": ["Don Quijote", "Die Göttliche Komödie", "Faust", "Moby Dick"]
         }
     ],
     "Technologie": [
@@ -116,6 +176,21 @@
             "question": "Was war der erste programmierbare Computer?",
             "answer": "Zuse Z3",
             "options": ["Zuse Z3", "ENIAC", "Colossus", "UNIVAC"]
+        },
+        {
+            "question": "Welches Jahr gilt als Geburtsjahr des Internets?",
+            "answer": "1983",
+            "options": ["1983", "1991", "1975", "1969"]
+        },
+        {
+            "question": "Wer gilt als Erfinder des World Wide Web?",
+            "answer": "Tim Berners-Lee",
+            "options": ["Tim Berners-Lee", "Bill Gates", "Steve Jobs", "Alan Turing"]
+        },
+        {
+            "question": "Welches Unternehmen entwickelte das Betriebssystem Windows?",
+            "answer": "Microsoft",
+            "options": ["Microsoft", "Apple", "IBM", "Linux Foundation"]
         }
     ],
     "Musik": [
@@ -128,6 +203,21 @@
             "question": "Welches Musikinstrument wird oft mit Jazz in Verbindung gebracht?",
             "answer": "Saxophon",
             "options": ["Saxophon", "Klavier", "Trompete", "Gitarre"]
+        },
+        {
+            "question": "Wer komponierte 'Die vier Jahreszeiten'?",
+            "answer": "Antonio Vivaldi",
+            "options": ["Antonio Vivaldi", "Johann Sebastian Bach", "Wolfgang Amadeus Mozart", "Ludwig van Beethoven"]
+        },
+        {
+            "question": "Welche Musikrichtung wird oft mit Bob Marley in Verbindung gebracht?",
+            "answer": "Reggae",
+            "options": ["Reggae", "Rock", "Jazz", "Blues"]
+        },
+        {
+            "question": "Welches berühmte Musikfestival fand 1969 statt?",
+            "answer": "Woodstock",
+            "options": ["Woodstock", "Glastonbury", "Coachella", "Monterey Pop"]
         }
     ],
     "Biologie": [
@@ -140,6 +230,21 @@
             "question": "Welche Blutgruppe wird als Universalspender bezeichnet?",
             "answer": "0 negativ",
             "options": ["0 negativ", "A positiv", "AB negativ", "B positiv"]
+        },
+        {
+            "question": "Was ist das größte Organ des menschlichen Körpers?",
+            "answer": "Haut",
+            "options": ["Haut", "Leber", "Lunge", "Herz"]
+        },
+        {
+            "question": "Wie nennt man Pflanzen, die keine Samen produzieren?",
+            "answer": "Farnpflanzen",
+            "options": ["Farnpflanzen", "Moose", "Gymnospermen", "Angiospermen"]
+        },
+        {
+            "question": "Welche Tierklasse legen Eier und säugen ihre Jungen?",
+            "answer": "Kloakentiere",
+            "options": ["Kloakentiere", "Reptilien", "Amphibien", "Vögel"]
         }
     ]
 }
