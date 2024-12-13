@@ -17,3 +17,16 @@ Features
 - Berechnung des Überschusses (Einnahmen - Ausgaben).
 - Benutzerfreundliche Oberfläche
 - Intuitive GUI auf Basis von Tkinter.
+
+# Pubquiz
+Ein einfaches Tool für das abendliche Pubquiz von zuhause. Mit 9 verschiedenen Fragekategorien und dem Einzelspieler- bzw. Multiplayermodus
+steht dem Quizvergnügen nichts mehr im Weg.
+
+Features
+
+ - Grafische Benutzeroberfläche
+ - Einzelspiele- und Multiplayermodus
+ - 9 Fragekategorien
+ - Fragen mittels JSON jederzeit eiweiterbar
+ - Namenseingabe im Multiplayermodus
+ - Ressourcenschonendes Design
