@@ -4,11 +4,11 @@ import sqlite3  # Importiert SQLite, ein eingebettetes Datenbanksystem.
 
 def check_python():  # Überprüft die Python-Version, um sicherzustellen, dass das Programm korrekt ausgeführt wird.
     import sys  # Importiert das sys-Modul, um auf Versionsinformationen von Python zuzugreifen.
-    if sys.version_info.major < 3:  # Prüft, ob die Hauptversion von Python kleiner als 3 ist.
+    if sys.version_info.major < 3.12:  # Prüft, ob die Hauptversion von Python kleiner als 3.12 ist.
         print('''
-            Dieses Programm erfordert Python 3.13, um korrekt ausgeführt zu werden.
+        Dieses Programm erfordert Python 3.12 (oder aktuellere Version), um korrekt ausgeführt zu werden.
 
-        So installieren Sie Python 3.13:
+        So installieren Sie die neue Version:
 
         Gehen Sie auf die offizielle Website von Python: https://www.python.org.
         Navigieren Sie zum Bereich "Downloads" und wählen Sie die Version 3.13 für Ihr Betriebssystem aus (Windows, macOS oder Linux).
@@ -22,7 +22,7 @@ def check_python():  # Überprüft die Python-Version, um sicherzustellen, dass 
         Nach der Installation überprüfen Sie, ob Python korrekt installiert wurde:
         Öffnen Sie eine Kommandozeile oder ein Terminal.
         Geben Sie python --version oder python3 --version ein.
-        Es sollte die Version 3.13 angezeigt werden. ''')  # Zeigt eine detaillierte Anleitung zur Installation von Python 3.13.
+        Es sollte die aktuellste Version angezeigt werden. ''')  # Zeigt eine detaillierte Anleitung zur Installation von Python 3.13.
 
         sys.exit(1)  # Beendet das Programm, wenn die Python-Version nicht kompatibel ist
 
