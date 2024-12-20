@@ -10,14 +10,29 @@ questionsjson = 'questions.json' # Variable definiert
 
 # Funktion zum Laden von Fragen aus einer JSON-Datei
 def load_questions(filename):
-    with open(filename, 'r', encoding="utf-8") as file:
-        data = json.load(file)
-        questions = []
-        for category, qs in data.items():
-            for q in qs:
-                q['category'] = category
-                questions.append(q)
-        return questions
+    try:
+        with open(filename, 'r', encoding="utf-8") as file:
+            data = json.load(file)
+            questions = []
+            if not isinstance(data, dict):
+                raise ValueError("Datenstruktur ist nicht wie erwartet. Es sollte ein Wörterbuch sein.")
+
+            for category, qs in data.items():
+                if not isinstance(qs, list):
+                    raise ValueError(f"Erwartet eine Liste von Fragen in der Kategorie {category}, gefunden {type(qs)}.")
+                for q in qs:
+                    if not ('question' in q and 'options' in q and 'answer' in q):
+                        raise ValueError("Jede Frage muss 'question', 'options' und 'answer' enthalten.")
+                    q['category'] = category
+                    questions.append(q)
+            return questions
+    except FileNotFoundError:
+        raise FileNotFoundError(f"Die Datei {filename} wurde nicht gefunden.")
+    except json.JSONDecodeError:
+        raise ValueError("JSON-Daten konnten nicht geparst werden. Überprüfen Sie die Datei auf Fehler.")
+    except Exception as e:
+        raise Exception(f"Ein unerwarteter Fehler ist aufgetreten: {e}")
+
 
 # Hauptklasse für die Quiz-Anwendung
 class QuizApp:
