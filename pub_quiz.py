@@ -96,11 +96,15 @@ class QuizApp:
         if not self.players:
             messagebox.showerror("Fehler", "Es müssen mindestens ein Spieler eingegeben werden!")
             return
+        if len(set(self.players)) != len(self.players):
+            messagebox.showerror("Fehler", "Duplikate in den Spielernamen gefunden! Jeder Spielername muss einzigartig sein.")
+            return
 
         self.multiplayer_scores = {player: 0 for player in self.players}
         self.current_player_index = 0
         setup_window.destroy()
         self.start_multiplayer_quiz()
+
 
     # Startet das Quiz im Mehrspielermodus
     def start_multiplayer_quiz(self):
@@ -135,16 +139,17 @@ class QuizApp:
 
     # Filtert die Fragen basierend auf der gewählten Kategorie
     def filter_questions(self):
-        if self.selected_category is None:
+        if not self.selected_category:
             messagebox.showerror("Fehler", "Keine Kategorie ausgewählt!")
             return
 
         category = self.selected_category.get()
         filtered_questions = [q for q in self.questions if q['category'] == category]
-        if filtered_questions:
-            self.questions = filtered_questions
-        else:
+        if not filtered_questions:
             messagebox.showerror("Fehler", "Keine Fragen in dieser Kategorie gefunden!")
+            return
+        
+        self.questions = filtered_questions
 
     # Zeigt eine Frage an (Singleplayer oder Multiplayer)
     def show_question(self, multiplayer=False):
