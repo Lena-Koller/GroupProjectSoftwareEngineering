@@ -93,27 +93,17 @@ class QuizApp:
  
     # Initialisiert die Spieler und startet den Mehrspielermodus
     def setup_multiplayer(self, player_input, setup_window):
-        self.players = [player.strip() for player in player_input.split(',') if player.strip()]
-        if not self.players:
+        players = [player.strip() for player in player_input.split(',') if player.strip()]
+        if not players:
             messagebox.showerror("Fehler", "Es müssen mindestens ein Spieler eingegeben werden!")
             return
-        if len(set(self.players)) != len(self.players):
+        if len(set(players)) != len(players):
             messagebox.showerror("Fehler", "Duplikate in den Spielernamen gefunden! Jeder Spielername muss einzigartig sein.")
             return
  
-        self.multiplayer_scores = {player: 0 for player in self.players}
-        self.current_player_index = 0
         setup_window.destroy()
-        self.start_multiplayer_quiz()
- 
- 
-    # Startet das Quiz im Mehrspielermodus
-    def start_multiplayer_quiz(self):
-        if self.current_question_index >= min(roundsMultiplayer, len(self.questions)):
-            self.show_multiplayer_results()
-            return
- 
-        self.show_question(multiplayer=True)
+        self.multiplayer_quiz = MultiplayerQuiz(self.root, self.questions, players)
+        self.multiplayer_quiz.start()
  
     # Ermöglicht die Auswahl einer Kategorie
     def choose_category(self):
@@ -288,7 +278,84 @@ class QuizApp:
             text="Zurück zum Hauptmenü",
             command=self.reset_quiz
         ).pack(pady=10)
- 
+
+class MultiplayerQuiz:
+    def __init__(self, root, questions, players):
+        self.root = root
+        self.questions = questions
+        self.players = players
+        self.current_player_index = 0
+        self.current_question_index = 0
+        self.scores = {player: 0 for player in players}
+        self.selected_option = tk.StringVar(value="")
+
+    def start(self):
+        random.shuffle(self.questions)
+        self.questions = self.questions[:roundsMultiplayer]
+        self.show_question()
+
+    def show_question(self):
+        if self.current_question_index >= len(self.questions):
+            self.display_results()
+            return
+
+        question = self.questions[self.current_question_index]
+        shuffled_options = question['options'].copy()
+        random.shuffle(shuffled_options)
+
+        self.clear_frame()
+
+        player = self.players[self.current_player_index]
+        tk.Label(self.root, text=f"Spieler: {player}", font=("Arial", 16)).pack(pady=5)
+        tk.Label(self.root, text=f"Frage {self.current_question_index + 1}", font=("Arial", 16)).pack(pady=10)
+        tk.Label(self.root, text=question['question'], wraplength=400).pack(pady=10)
+
+        self.selected_option.set("")
+        for option in shuffled_options:
+            tk.Radiobutton(
+                self.root,
+                text=option,
+                variable=self.selected_option,
+                value=option
+            ).pack(anchor="w", pady=5)
+
+        tk.Button(
+            self.root,
+            text="Bestätigen",
+            command=self.check_answer
+        ).pack(pady=10)
+
+    def check_answer(self):
+        question = self.questions[self.current_question_index]
+        selected = self.selected_option.get()
+        player = self.players[self.current_player_index]
+
+        if selected == question['answer']:
+            self.scores[player] += 1
+            messagebox.showinfo("Richtig!", "Das war die richtige Antwort!")
+        else:
+            messagebox.showerror("Falsch!", f"Die richtige Antwort war: {question['answer']}")
+
+        self.current_player_index = (self.current_player_index + 1) % len(self.players)
+        if self.current_player_index == 0:
+            self.current_question_index += 1
+        self.show_question()
+
+    def display_results(self):
+        self.clear_frame()
+        tk.Label(self.root, text="Multiplayer Ergebnis", font=("Arial", 16)).pack(pady=10)
+        for player, score in self.scores.items():
+            tk.Label(self.root, text=f"{player}: {score}", font=("Arial", 14)).pack(pady=5)
+        tk.Button(
+            self.root,
+            text="Zurück zum Hauptmenü",
+            command=self.root.destroy
+        ).pack(pady=10)
+
+    def clear_frame(self):
+        for widget in self.root.winfo_children():
+            widget.destroy()
+
 # Hauptprogramm
 # Hauptfunktion der Anwendung
 def main():
