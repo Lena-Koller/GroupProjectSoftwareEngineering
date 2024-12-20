@@ -6,6 +6,7 @@ from tkinter import messagebox
 # Festlegen der Anzahl von Runden für Einzelspieler und Mehrspieler
 roundsSingleplayer = 5
 roundsMultiplayer = 3
+questionsjson = 'questions.json' # Variable definiert
 
 # Funktion zum Laden von Fragen aus einer JSON-Datei
 def load_questions(filename):
@@ -52,10 +53,11 @@ class QuizApp:
         self.quit_button.pack(pady=5)
 
     # Startet den Einzelspieler-Quizmodus
-    def start_quiz(self):
+    def start_quiz(self): 
         random.shuffle(self.questions)
         self.score = 0
         self.current_question_index = 0
+        self.questions = self.questions[:roundsSingleplayer] # Rundenlimitierung einfügen
         self.show_question()
 
     # Öffnet ein Setup-Fenster für den Mehrspielermodus
@@ -231,7 +233,7 @@ class QuizApp:
 
     # Setzt die Variablen der Anwendung auf ihre Standardwerte zurück
     def reset_variables(self):
-        self.questions = load_questions('questions.json')
+        self.questions = load_questions(questionsjson) # Änderung auf Variable
         self.score = 0
         self.current_question_index = 0
         self.selected_category = None
@@ -254,13 +256,14 @@ def main():
     questions = None
 
     try:
-        questions = load_questions('questions.json')
+        questions = load_questions(questionsjson) # Änderung auf Variable
     except Exception as e:
         messagebox.showerror("Fehler", f"Fehler beim Laden der Fragen: {e}")
         return
 
     root = tk.Tk()
     QuizApp(root, questions)
+    root.geometry('500x500') # größeres Ausgabefenster UI
     root.mainloop()
 
 if __name__ == "__main__":
